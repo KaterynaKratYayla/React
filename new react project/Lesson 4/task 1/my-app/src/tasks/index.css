@@ -1,0 +1,33 @@
+.switcher{
+    display: flex;
+    flex-direction: row;
+}
+
+.switcher__item{
+    width: 10vw;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(187, 248, 248);
+    margin-left: 1vw;
+    border-radius: 4px;
+}
+
+.switcher__item.active, .switcher1__item.active, .switcher2__item.active{
+    background-color: rgb(251, 253, 116);
+}
+
+.btn{
+    background-color: rgb(69, 192, 79);
+}
+
+.btn.blue{
+    background-color: blue;
+}
+
+.btn.red{
+    background-color: red;
+}
+
+.btn.yellow{
+    background-color: yellow;
+}
