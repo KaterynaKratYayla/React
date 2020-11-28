@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './index.css'
 import {SwitcherItem} from './Switcher'
-// import {Switcher} from './Switcher'
+import {Switcher} from './Switcher'
 
 /*
 
@@ -23,14 +23,14 @@ const ConForm = () => {
 
     const [myInput1, setMyInput1] = useState('');
     const [myInput2, setMyInput2] = useState('');
-    let [options, setMyOption] = useState('');  /////!!!!!!!!!!!!!!!!!!!!!!!SHOULD BE CONST
-    let [align, setAlign] = useState('');   //////////!!!!!!!!!!!!!!!!!!!SHOULD BE CONST
+    const [options, setMyOption] = useState(''); 
+    const [align, setAlign] = useState('');   
     
     const [list , setList] = useState([]);
 
-    function changeHandler(e){
-        return setAlign(align = e.target.innerHTML) ///////PROBABLY WRONG
-    }
+    const changeHandler = ( me ) => _ => {
+         setAlign(me);
+        }
 
     function myInputFunc1 (e) {     
         console.log(e.target.value) 
@@ -44,13 +44,13 @@ const ConForm = () => {
 
     function changeOption(e){
       console.log(e.target.value)
-      return setMyOption(options = e.target.value)  ///////PROBABLY WRONG
+      return setMyOption(e.target.value)  
     }
 
     const addToList = () => {
         const newList = {
             done: false,
-            item1: myInput1,
+            name: myInput1,
             item2: myInput2,
             item3: align,
             item4: options 
@@ -64,10 +64,10 @@ const ConForm = () => {
 
     }
 
-    function setDone (item1){
+    function setDone (name){
         return function(){
              let changedList = list.map(function(listing){
-            if (listing.item1 === item1){
+            if (listing.name === name){
                 listing.done = !listing.done;
             }
              return listing
@@ -83,7 +83,6 @@ const ConForm = () => {
 
     return(
         <form className='myForm' onSubmit={onSubmit}>
-            {/* <Inputs type={'text'} name={'UserName'} myInput={myInput} myInputFunc={myInputFunc}/> */}
             <div>
             <label>{'UserName'}</label>
             <input 
@@ -94,7 +93,6 @@ const ConForm = () => {
               placeholder={`Enter your UserName`}
               required/>
             </div>
-            {/* <Inputs type={'email'} name={'E-mail address'}  myInput={myInput} myInputFunc={myInputFunc}/> */}
             <div>
             <label>{'Email Address'}</label>
             <input 
@@ -110,25 +108,25 @@ const ConForm = () => {
                 <option value='Lviv'>Lviv</option>
                 <option value='Kharkiv'>Kharkiv</option>
                 <option value='Odesa'>Odesa</option>
-            </select>         
-             {/* <Switcher name={'Align'} changeHandler={changeHandler} active={align}> */}
-             <div>
-                <SwitcherItem value='Student' changeHandler={changeHandler} active={align}>Student</SwitcherItem>
-                <SwitcherItem value='Employeer' changeHandler={changeHandler} active={align}>Employeer</SwitcherItem>
-                <SwitcherItem value='Job Applicant' changeHandler={changeHandler} active={align}>Job Applicant</SwitcherItem>
-              {/* </Switcher> */}
-              </div>
+            </select>    
+
+             <Switcher name={'align'} changeHandler={changeHandler} active={align}>
+                <SwitcherItem value='student'>Student</SwitcherItem>
+                <SwitcherItem value='employeer'>Employeer</SwitcherItem>
+                <SwitcherItem value='job Applicant'>Job Applicant</SwitcherItem>
+              </Switcher>
+            
            <button type='submit' onClick={addToList}>Submit</button>
         
             <ul>
                 {
-                    list.map (function(listitem){
+                    list.map (function(listitem,index){
                         return <li 
-                                   key={listitem.item1} 
-                                   className={listitem.done ? 'list__green' : 'list__red'}
-                                   onClick={setDone(listitem.item1)}>
-                            {listitem.item1} / {listitem.item2} / {listitem.item3} / {listitem.item4}
-                        </li>
+                                      key={index} 
+                                      className={listitem.done ? 'list__green' : 'list__red'}
+                                      onClick={setDone(listitem.name)}>
+                                  {listitem.name} / {listitem.item2} / {listitem.item3} / {listitem.item4}
+                               </li>
                         
                     })
                 }
