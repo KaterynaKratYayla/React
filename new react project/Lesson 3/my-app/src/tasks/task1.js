@@ -34,67 +34,65 @@ import './index.css'
 
 
 export const Switcher = (props) =>{
-  const {children,name,active, changeToggle} = props;
- 
-  // console.log(type)
-  
-  // if(props !== undefined){
-    // if(type === children.value){
-  return (
-  <h2 className='switcher'> {name } : {
-      React.Children.count(children) > 0 && (
-        <>
-        {
-          React.Children.map(children, (child) =>{
-            // console.log(child.props.type, active)
-            if (React.isValidElement(child)) {
+	const {children, name, active, changeToggle} = props;
 
-              return React.cloneElement(
-                child,
-                  {
-                  active:  child.props.value? child.props.value === active : child.props.gender ? child.props.gender === active : child.props.layout === active,
-                  changeToggle: changeToggle(child.props.value,child.props.gender,child.props.layout),
-                  // type: child.props.children
-                  name: name
+	return (
+		<div className='switcher'> 
+			<div>{ name } </div>:
+			<div>
+				{
+					React.Children.count(children) > 0 && (
+						<>
+						{
+							React.Children.map(children, (child) => {
 
-                  }
-                 )
-               }
-              
-        
-          })
-         }
-        </>
-       )
-      } </h2>
-     )
-    }
-  
+								if (React.isValidElement(child)) {
 
-export const SwitcherItem = (props) =>{
-const {children,active,changeToggle} = props;
-console.log(props);
+									return React.cloneElement(
+										child,
+										{
+											active: active === child.props.value,
+											changeToggle: changeToggle( name, child.props.value ),
+											name: name
 
-  return (
-    <button className={
-      active ? 'switcher__item active' : "switcher__item"
-    } onClick={changeToggle}
-       type='button'>
-      {children}
-      </button>
-  )
-
+										}
+									)
+								}
+							})
+						}
+						</>
+					)
+			} 
+			</div>
+		</div>
+	)
+}
+Switcher.propTypes={
+	name: PropTypes.string.isRequired,
+	changeToggle: PropTypes.func.isRequired,
+	children: PropTypes.array,
+	active: PropTypes.string
 }
 
-Switcher.propTypes={
-  name: PropTypes.string.isRequired,
-  changeToggle: PropTypes.func.isRequired,
-  children: PropTypes.array,
-  active: PropTypes.string
+
+export const SwitcherItem = (props) => {
+
+	const { children, active, changeToggle } = props;
+
+	return (
+		<button 
+			className={ active ? 'switcher__item active' : "switcher__item"} 
+			onClick={changeToggle}
+			type='button'
+		>
+			{children}
+		</button>
+	)
+
 }
 
 SwitcherItem.propTypes={
-  changeToggle: PropTypes.func,
-  children: PropTypes.array,
-  active: PropTypes.string
+	changeToggle: PropTypes.func.isRequired,
+	children: PropTypes.any,
+	active: PropTypes.string
 }
