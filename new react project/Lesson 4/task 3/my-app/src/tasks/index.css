@@ -1,0 +1,30 @@
+.myForm{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start ;
+    margin-top: 6vw;
+    margin-left: 7vw;
+
+
+}
+
+.myForm label{
+    padding-right: 30px;
+}
+
+.list__green {
+    color: green;
+}
+
+.list__red{
+    color: red;
+}
+
+.switcher__item.active{
+    background-color: yellow;
+}
+
+.switcher__item{
+    background-color: lightgray
+}
